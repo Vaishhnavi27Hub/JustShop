@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Account</title>
+    <meta name = "description" content = "coupon.html">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, rgba(8, 61, 119, 1) 0%, rgba(9, 41, 88, 1) 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient( #083d77, #00a8cc);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Account</h1>
+        <form id="account-form" action="/save-data" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+
+            <label for="additional-email">Additional Email (Optional)</label>
+            <input type="email" id="additional-email" name="additional-email">
+
+            <label for="additional-phone">Additional Phone Number (Optional)</label>
+            <input type="tel" id="additional-phone" name="additional-phone">
+
+            <div class="button-container">
+                <button type="submit" id="save-button" class="button">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code for handling form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('account-form');
+            const saveButton = document.getElementById('save-button');
+
+            // Function to handle form submission
+            function handleFormSubmit(event) {
+                event.preventDefault(); // Prevent default form submission behavior
+                
+                // Fetch form data
+                const formData = new FormData(form);
+                const data = {};
+                for (const [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+
+                // Send data to server
+                fetch('/save-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Display success alert
+                    alert('Account data saved successfully');
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+
+            // Event listener for form submission
+            form.addEventListener('submit', handleFormSubmit);
+        });
+    </script>
+    </body>
+</html>

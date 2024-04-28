@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name = "description" content = "coupon.html">
+    <title>Feedback - justShop</title>
+    <style>
+/* Feedback Page Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    /* background: linear-gradient(45deg, #083d77, #00a8cc); Gradient background for the entire window */
+    overflow: hidden; /* Hide overflow for animated background */
+    animation: pulse 6s ease-in-out infinite alternate; /* Animated background */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.feedback-form {
+    /* background-color: rgba(255, 255, 255, 0.9); Semi-transparent white background for the form */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+    background: linear-gradient(45deg, #083d77, #00a8cc); 
+    /* animation: pulse 2s ease-in-out infinite alternate; Animated background */
+    max-width: 600px; /* Set maximum width for the form container */
+    width: 90%; /* Set width to a percentage or pixel value */
+    margin: 0 auto;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: #083d77;
+    }
+    100% {
+        background-color: #00a8cc;
+    }
+}
+
+.feedback-form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff; /* Text color */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff; /* Text color */
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease; /* Smooth transition for input focus */
+    background-color: rgba(255, 255, 255, 0.8); /* Input background color */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #fff; /* Change border color on focus */
+}
+
+textarea {
+    resize: vertical;
+}
+
+.rating {
+    margin-bottom: 20px;
+}
+
+.rating input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none; /* Disable pointer events so users can't interact with the radio inputs directly */
+}
+
+.rating label {
+    display: inline-block;
+    cursor: pointer;
+    width: 40px; /* Increase the width of each star */
+    height: 40px; /* Increase the height of each star */
+    background-image: url('star_img.png'); /* Star image */
+    background-size: contain; /* Ensure the entire star is visible */
+    background-repeat: no-repeat; /* Prevent repeating the star image */
+    transition: transform 0.2s ease; /* Smooth transition for hover effect */
+}
+
+/* Adjust the position of the stars to align them properly */
+#star5 {
+    background-position: 0 0;
+}
+
+#star4 {
+    background-position: -40px 0;
+}
+
+#star3 {
+    background-position: -80px 0;
+}
+
+#star2 {
+    background-position: -120px 0;
+}
+
+#star1 {
+    background-position: -160px 0;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+    transform: scale(1.2); /* Increase size of star on hover */
+}
+
+
+button[type="submit"] {
+    background-color: #fff; /* Button background color */
+    color: #083d77; /* Button text color */
+    padding: 12px 30px; /* Button padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+button[type="submit"]:hover {
+    background-color: #f0f0f0; /* Button background color on hover */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="feedback-form">
+            <h2>Share Your Feedback</h2>
+            <form id="feedback-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-type">Feedback Type:</label>
+                    <select id="feedback-type" name="feedback-type" required>
+                        <option value="suggestion">Suggestion</option>
+                        <option value="problem">Problem</option>
+                        <option value="compliment">Compliment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating: <span id="ratingValue"></span></label>
+                    <div class="rating">
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1" title="1 stars"></label>
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2" title="2 stars"></label>
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3" title="3 stars"></label>
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4" title="4 stars"></label>
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5" title="5 star"></label>
+                    </div>
+                    
+                </div>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById("feedback-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    let formData = new FormData(this);
+    for (let [name, value] of formData.entries()) {
+        console.log(name + ": " + value);
+    }
+    this.reset();
+});
+// Get all radio input elements
+const ratingInputs = document.querySelectorAll('.rating input[type="radio"]');
+
+// Get the element to display the selected rating value
+const ratingValueElement = document.getElementById('ratingValue');
+
+// Add event listener to each radio input
+ratingInputs.forEach(input => {
+    input.addEventListener('change', () => {
+        // Update the rating value element with the selected rating
+        ratingValueElement.textContent = input.value;
+    });
+});
+
+    </script>
+</body>
+</html>

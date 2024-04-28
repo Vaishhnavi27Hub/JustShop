@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Offers and Coupons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+    <meta name = "description" content = "coupon.html">
+    <style>
+        /* CSS styles for coupon page */
+        /* Add your CSS styles here */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #acd5f9; /* Light Blue */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0e0245;
+            margin-top: 20px;
+        }
+
+        .slider {
+            width: 80%;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 300px;
+        }
+
+        .offer-cases {
+            margin: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .offer-case {
+            background-color: #fff; /* White background */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            padding: 20px;
+            text-align: center;
+        }
+
+        .offer-case h3 {
+            color: #0e0245;
+        }
+
+        .offer-case p {
+            color: #555;
+        }
+
+        .offer-case button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .offer-case button:hover {
+            background-color: #0056b3;
+        }
+
+        .coupon-form {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .coupon-form h2 {
+            color: #0e0245;
+        }
+
+        .coupon-form input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .coupon-form input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .coupon-form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .coupon-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .end-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .end-section button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .end-section button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Heading for coupon section -->
+    <h1>BUY the product and get amazing offers</h1>
+
+    <!-- Slider for offers images -->
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <img src="slid_img_1.jpg" alt="Offer Image 1">
+            </div>
+            <div class="slide">
+                <img src="slid_img_2.jpeg" alt="Offer Image 2">
+            </div>
+            <div class="slide">
+                <img src="slid_img_3.jpg" alt="Offer Image 2">
+            </div>
+            <div class="slide">
+                <img src="slid_img_4.jpg" alt="Offer Image 2">
+            </div>
+            <!-- Add more slide divs with images as needed -->
+        </div>
+    </div>
+
+  <!-- Grid containers for offer cases
+<div class="offer-cases">
+    Add your grid container HTML code here -->
+    <!-- <div class="product-container">
+        <div class="product-image">
+            <img src="offer_product_img_1.jpg" alt="Offer Product 1">
+            <div class="overlay">
+                <a href="#" class="wishlist"><i class="far fa-heart"></i></a>
+                <a href="#" class="add-to-cart"><i class="fas fa-cart-plus"></i></a>
+            </div>
+            <button class="shop-now-btn">Shop Now</button>
+        </div>
+        
+    </div>
+</div> -->
+
+
+
+    <!-- Explore Coupon form -->
+    <div class="coupon-form">
+        <h2>Explore Coupon-To Explore Discount%!!</h2>
+        <input type="text" id="coupon-input" placeholder="Enter coupon code">
+        <button onclick="applyCoupon()">Apply</button>
+    </div>
+
+    <!-- End section with button to redirect back to shop.html -->
+    <div class="end-section">
+        <button onclick="redirectToShop()">Back to Shop</button>
+    </div>
+
+    <!-- JavaScript code to apply coupon -->
+    <script>
+        function applyCoupon() {
+            var couponCode = document.getElementById("coupon-input").value;
+            if (couponCode === "") {
+                alert("Please enter a coupon code.");
+            } else {
+                alert("Coupon applied successfully: " + couponCode);
+                document.getElementById("coupon-input").value = ""; // Clear input field
+            }
+        }
+    </script>
+
+    <!-- JavaScript code to redirect to shop.html -->
+    <script>
+        function redirectToShop() {
+            window.location.href = "shop.html";
+        }
+    </script>
+
+    <!-- JavaScript code for slider functionality -->
+    <script>
+        const slides = document.querySelector('.slides');
+        const slide = document.querySelectorAll('.slide');
+        const slideWidth = slide[0].clientWidth;
+
+        let counter = 1;
+
+        setInterval(() => {
+            slides.style.transition = 'transform 1s ease-in-out';
+            slides.style.transform = `translateX(${-slideWidth * counter}px)`;
+            counter++;
+
+            if (counter === slide.length) {
+                setTimeout(() => {
+                    slides.style.transition = 'none';
+                    slides.style.transform = 'translateX(0)';
+                    counter = 1;
+                }, 1000);
+            }
+        }, 2000);
+        
+    document.addEventListener('DOMContentLoaded', function() {
+        const wishlistIcons = document.querySelectorAll('.wishlist');
+        const addToCartIcons = document.querySelectorAll('.add-to-cart');
+
+        wishlistIcons.forEach(icon => {
+            icon.addEventListener('click', addToWishlist);
+        });
+
+        addToCartIcons.forEach(icon => {
+            icon.addEventListener('click', addToCart);
+        });
+
+        function addToWishlist(event) {
+            event.preventDefault();
+            const productName = event.target.closest('.product-container').querySelector('img').alt;
+            const productImage = event.target.closest('.product-container').querySelector('img').src;
+
+            const productInfo = {
+                name: productName,
+                image: productImage
+            };
+
+            // Retrieve existing wishlist items from local storage
+            const existingWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            // Add the new product to the wishlist
+            existingWishlist.push(productInfo);
+
+            // Update the wishlist in local storage
+            localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
+
+            // Notify user that the product has been added to the wishlist
+            alert('Product added to wishlist!');
+        }
+
+        function addToCart(event) {
+            event.preventDefault();
+            const productName = event.target.closest('.product-container').querySelector('img').alt;
+            const productImage = event.target.closest('.product-container').querySelector('img').src;
+
+            const productInfo = {
+                name: productName,
+                image: productImage
+            };
+
+            // Retrieve existing cart items from local storage
+            const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Add the new product to the cart
+            existingCart.push(productInfo);
+
+            // Update the cart in local storage
+            localStorage.setItem('cart', JSON.stringify(existingCart));
+
+            // Notify user that the product has been added to the cart
+            alert('Product added to cart!');
+        }
+    });
+
+ // Changed slide changing speed to 5 seconds
+  </script>  
+</body>
+</html>

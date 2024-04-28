@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Carousel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<style>
+  /* Your custom CSS styles here */
+  .carousel {
+    width: 70%;
+    margin: 0 auto;
+    /* background-color: orange; */
+    
+  }
+  .carousel-slide {
+    text-align: center;
+  }
+  img {
+    max-width: 80%;
+    height: 250px;
+  }
+</style>
+</head>
+<body>
+
+<div class="carousel">
+  <div class="carousel-slide">
+    <img src="car_1.jpg" alt="Image 1">
+  </div>
+  <div class="carousel-slide">
+    <img src="car_2.jpg" alt="Image 2">
+  </div>
+  <div class="carousel-slide">
+    <img src="det_11.jpg" alt="Image 3">
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.carousel').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true, // Enable autoplay
+      autoplaySpeed: 2000, // Autoplay speed in milliseconds (adjust as needed)
+      arrows: true,
+      dots: true
+    });
+  });
+</script>
+
+</body>
+</html>

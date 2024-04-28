@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <meta name = "description" content = "coupon.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+   <style>
+    /* Wishlist Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #177e9d; /* Background color set to #acd5f9 */
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #74d5f2;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.wishlist-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.wishlist-item {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.wishlist-item:hover {
+    transform: translateY(-5px); /* Move item upwards on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.wishlist-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.wishlist-item h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.wishlist-item p {
+    margin: 5px 0;
+}
+
+.wishlist-item .delete-btn {
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.wishlist-item .delete-btn:hover {
+    background-color: #ff473a;
+}
+
+.wishlist-item .add-to-cart-btn {
+    background-color:#333;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.wishlist-item .add-to-cart-btn:hover {
+    background-color: #0056b3;
+}
+
+.back-btn {
+    display: block;
+    margin: 0 auto;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #0056b3;
+}
+
+   </style><!-- Link to external CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>My Wishlist</h1>
+        <div class="wishlist-container">
+            <!-- Wishlist items will be dynamically added here -->
+        </div>
+        <button class="back-btn" onclick="redirectToShop()">Back to Shop</button> <!-- Back button added -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const wishlistContainer = document.querySelector('.wishlist-container');
+
+    updateWishlist();
+
+    function updateWishlist() {
+        wishlistContainer.innerHTML = '';
+
+        if (wishlistItems.length === 0) {
+            wishlistContainer.innerHTML = '<p>No items in your wishlist.</p>';
+        } else {
+            wishlistItems.forEach((item, index) => {
+                const wishlistItem = document.createElement('div');
+                wishlistItem.classList.add('wishlist-item');
+                wishlistItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div>
+                        <h2>${item.name}</h2>
+                        <p>${item.description}</p>
+                        <button class="delete-btn" onclick="removeFromWishlist(${index})"><i class="fas fa-trash"></i></button>
+                        <button class="add-to-cart-btn" onclick="addToCart(${index})">Add to Cart</button>
+                    </div>
+                `;
+                wishlistContainer.appendChild(wishlistItem);
+            });
+        }
+    }
+
+    window.removeFromWishlist = function(index) {
+        wishlistItems.splice(index, 1); // Remove item from array
+        localStorage.setItem('wishlist', JSON.stringify(wishlistItems)); // Update local storage
+        updateWishlist(); // Update the wishlist display
+    };
+
+    window.redirectToShop = function() {
+        window.location.href = "shop.html"; // Redirect to shop.html page
+    };
+
+    window.addToCart = function(index) {
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.push(wishlistItems[index]); // Add item to cart
+        localStorage.setItem('cart', JSON.stringify(cartItems)); // Update local storage
+        alert('Item added to cart!'); // Show confirmation message
+    };
+});
+    </script> <!-- Link to external JS file -->
+</body>
+</html>

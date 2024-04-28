@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome CSS -->
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #177e9d;  /* Light background for better contrast */
+    }
+
+    .container {
+      max-width: 1200px; /* Limit container width for responsiveness */
+      margin: 0 auto; /* Center the container horizontally */
+      padding: 20px;
+    }
+
+    /* Product Details Section */
+    .product-details {
+      display: flex;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    /* Image Slider */
+    .product-slider {
+      width: 40%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      width: 100%;
+      height: auto; /* Maintain aspect ratio */
+      margin-right: 10px; /* Adjust spacing between slides */
+    }
+
+    .product-image {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    /* Navigation Arrows (Optional) */
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px;
+      color: #333;
+      font-size: 20px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+
+    .prev {
+      left: 0;
+    }
+
+    .next {
+      right: 0;
+    }
+
+    .prev:hover,
+    .next:hover {
+      color: #000;
+    }
+
+    /* Product Information */
+    .product-info {
+      width: 60%;
+      padding: 20px;
+    }
+
+    .product-name {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .product-rating {
+      margin-bottom: 10px;
+    }
+
+    .star-icon {
+      color: #f9c733; /* Gold for star rating */
+      font-size: 16px;
+    }
+
+    .product-price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .product-description {
+      margin-bottom: 10px;
+    }
+
+    .size-options {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .size {
+      margin: 5px;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .size.active {
+      background-color: #ddd; /* Highlight selected size */
+    }
+
+    .stock-status {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .in-stock {
+      color: #38b000; /* Myntra-like green for in stock */
+    }
+
+    .out-of-stock {
+      color: #c0392b; /* Red for out of stock */
+    }
+
+    .delivery-info {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-to-cart1 {
+      background-color:  #333; /* Myntra-like green for add to cart */
+      color: #fff;
+    }
+
+    .add-to-cart1:hover {
+      background-color: #1e69b3;
+    }
+
+    .add-to-wishlist1 {
+      background-color: #333; /* Light gray for wishlist */
+      color:#fff;
+    }
+
+    .add-to-wishlist1:hover {
+      background-color: #1e69b3;
+    }
+
+    /* Additional Styles (optional) */
+    .social-share {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .social-share a {
+      margin: 0 5px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .social-share a:hover {
+      color: #000;
+    }
+
+    .fa-facebook,
+    .fa-twitter,
+    .fa-pinterest {
+      font-size: 18px; /* Assuming you're using Font Awesome icons */
+    }
+
+    /* Similar products section styles */
+
+    .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    margin:5px;
+}
+
+.product {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease; 
+    height:270px;
+}
+
+.product:hover {
+    transform: translateY(-5px); /* Move product container upwards on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow on hover */
+}
+
+
+
+.product img {
+    width: 100%;
+    height:150px;
+    border-radius: 5px;
+}
+
+.product h2 {
+    margin-top: 2px;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.product p {
+    margin-top: 5px;
+    font-size: 0.9rem;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons i {
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.buttons i:hover {
+    color: #007bff;
+}
+
+
+    
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="product-details">
+      <div class="product-slider">
+        <div class="carousel">
+          <!-- Initially, no images are added here -->
+        </div>
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
+      </div>
+
+      <div class="product-info">
+        <h2 class="product-name">MISS CHASE</h2>
+
+        <div class="product-rating">
+          <i class="fas fa-star star-icon"></i>
+          <i class="fas fa-star star-icon"></i>
+          <i class="fas fa-star star-icon"></i>
+          <i class="fas fa-star-half-alt star-icon"></i>
+          <i class="far fa-star star-icon"></i>
+          <span>(4.5 out of 5 stars)</span>
+        </div>
+
+        <p class="product-price">Rs 1600</p>
+
+        <div class="product-description">
+          <p>A detailed description of the product, including its features, benefits, and materials.</p>
+        </div>
+
+        <div class="size-options">
+          <div class="size active">S</div>
+          <div class="size">M</div>
+          <div class="size">L</div>
+          <div class="size">XL</div>
+        </div>
+
+        <p class="stock-status in-stock">In Stock</p>
+
+        <p class="delivery-info">Free delivery within 3-5 business days.</p>
+
+        <div class="action-buttons">
+          <button class="add-to-cart1">Add to Cart</button>
+          <button class="add-to-wishlist1">Add to Wishlist</button>
+        </div>
+
+        <div class="social-share">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="products">
+    <div class="product" >
+        <img src="det_1.jpg" alt="Product 1">
+        <h2>True Shape</h2>
+        <p>Rs 1600</p>
+        <div class="buttons">
+            <i class="far fa-heart add-to-wishlist" data-name="True Shape" data-image="det_1.jpg" data-description="Rs 1600"></i>
+            <i class="fas fa-cart-plus add-to-cart" data-name="True Shape" data-image="det_1.jpg" data-description="Rs 1600"></i>
+        </div>
+    </div>
+
+    <div class="product" >
+      <img src="det_2.jpg" alt="Product 1">
+      <h2>AASK</h2>
+      <p>Rs 700</p>
+      <div class="buttons">
+          <i class="far fa-heart add-to-wishlist" data-name="AASK" data-image="det_2.jpg" data-description="Rs 700"></i>
+          <i class="fas fa-cart-plus add-to-cart" data-name="AASK" data-image="det_2.jpg" data-description="Rs 700"></i>
+      </div>
+  </div>
+
+  <div class="product" >
+    <img src="det_3.jpg" alt="Product 1">
+    <h2>PINACOLA</h2>
+    <p>Rs 600</p>
+    <div class="buttons">
+        <i class="far fa-heart add-to-wishlist" data-name="PINACOLA" data-image="det_3.jpg" data-description="Rs 600"></i>
+        <i class="fas fa-cart-plus add-to-cart" data-name="PINACOLA" data-image="det_3.jpg" data-description="Rs 600"></i>
+    </div>
+</div>
+
+<div class="product" >
+  <img src="det_4.jpg" alt="Product 1">
+  <h2>VISHUDH</h2>
+  <p>Rs 1000</p>
+  <div class="buttons">
+      <i class="far fa-heart add-to-wishlist" data-name="VISHUDH" data-image="det_4.jpg" data-description="Rs 1000"></i>
+      <i class="fas fa-cart-plus add-to-cart" data-name="VISHUDH" data-image="det_4.jpg" data-description="Rs 1000"></i>
+  </div>
+</div>
+
+<div class="product" >
+  <img src="det_5.jpg" alt="Product 1">
+  <h2>SOUCHII</h2>
+  <p>Rs 2000</p>
+  <div class="buttons">
+      <i class="far fa-heart add-to-wishlist" data-name="SOUCHII" data-image="det_6.jpg" data-description="Rs 2000"></i>
+      <i class="fas fa-cart-plus add-to-cart" data-name="SOUCHII" data-image="det_6.jpg" data-description="Rs 2000"></i>
+  </div>
+</div>
+
+<div class="product" >
+  <img src="det_6.jpg" alt="Product 1">
+  <h2>DUMMY SHAPE</h2>
+  <p>Rs 2500</p>
+  <div class="buttons">
+      <i class="far fa-heart add-to-wishlist" data-name="DUMMY SHAPE" data-image="det_7.jpg" data-description="Rs 2500"></i>
+      <i class="fas fa-cart-plus add-to-cart" data-name="DUMMY SHAPE" data-image="det_7.jpg" data-description="Rs 2500"></i>
+  </div>
+</div>
+
+<div class="product" >
+  <img src="det_7.jpg" alt="Product 1">
+  <h2>RB</h2>
+  <p>Rs 1600</p>
+  <div class="buttons">
+      <i class="far fa-heart add-to-wishlist" data-name="RB" data-image="det_7.jpg" data-description="Rs 1600"></i>
+      <i class="fas fa-cart-plus add-to-cart" data-name="RB" data-image="det_7.jpg" data-description="Rs 1600"></i>
+  </div>
+</div>
+    </div>
+
+    <div class="products">
+      <div class="product" >
+          <img src="det_8.jpg" alt="Product 1">
+          <h2>MISS CHASE</h2>
+          <p>Rs 1600</p>
+          <div class="buttons">
+              <i class="far fa-heart add-to-wishlist" data-name="MISS CHASE" data-image="prd_1_img.jpg" data-description="Rs 1600"></i>
+              <i class="fas fa-cart-plus add-to-cart" data-name="MISS CHASE" data-image="prd_1_img.jpg" data-description="Rs 1600"></i>
+          </div>
+      </div>
+  
+      <div class="product" >
+        <img src="det_9.jpg" alt="Product 1">
+        <h2>Campona</h2>
+        <p>Rs 1600</p>
+        <div class="buttons">
+            <i class="far fa-heart add-to-wishlist" data-name="Campona" data-image="det_9.jpg" data-description="Rs 1600"></i>
+            <i class="fas fa-cart-plus add-to-cart" data-name="Campona" data-image="det_9.jpg" data-description="Rs 1600"></i>
+        </div>
+    </div>
+  
+    <div class="product" >
+      <img src="det_10.jpg" alt="Product 1">
+      <h2>Divena</h2>
+      <p>Rs 600</p>
+      <div class="buttons">
+          <i class="far fa-heart add-to-wishlist" data-name="Divena" data-image="det_10.jpg" data-description="Rs 600"></i>
+          <i class="fas fa-cart-plus add-to-cart" data-name="Divena" data-image="det_10.jpg" data-description="Rs 600"></i>
+      </div>
+  </div>
+  
+  <div class="product" >
+    <img src="det_11.jpg" alt="Product 1">
+    <h2>max</h2>
+    <p>Rs 1500</p>
+    <div class="buttons">
+        <i class="far fa-heart add-to-wishlist" data-name="max" data-image="det_11.jpg" data-description="Rs 1500"></i>
+        <i class="fas fa-cart-plus add-to-cart" data-name="max" data-image="det_11.jpg" data-description="Rs 1500"></i>
+    </div>
+  </div>
+  
+  <div class="product" >
+    <img src="det_12.jpg" alt="Product 1">
+    <h2>Molcha</h2>
+    <p>Rs 2600</p>
+    <div class="buttons">
+        <i class="far fa-heart add-to-wishlist" data-name="Molcha" data-image="det_12.jpg" data-description="Rs 2600"></i>
+        <i class="fas fa-cart-plus add-to-cart" data-name="Molcha" data-image="det_12.jpg" data-description="Rs 2600"></i>
+    </div>
+  </div>
+  
+  <div class="product" onclick="redirectToTrial()">
+    <img src="det_13.jpg" alt="Product 1">
+    <h2>based</h2>
+    <p>Rs 900</p>
+    <div class="buttons">
+        <i class="far fa-heart add-to-wishlist" data-name="based" data-image="det_13.jpg" data-description="Rs 900"></i>
+        <i class="fas fa-cart-plus add-to-cart" data-name="based" data-image="det_13.jpg" data-description="Rs 900"></i>
+    </div>
+  </div>
+  
+  <div class="product" onclick="redirectToTrial()">
+    <img src="det_14.jpg" alt="Product 1">
+    <h2>Koton</h2>
+    <p>Rs 500</p>
+    <div class="buttons">
+        <i class="far fa-heart add-to-wishlist" data-name="Koton" data-image="det_14.jpg" data-description="Rs 500"></i>
+        <i class="fas fa-cart-plus add-to-cart" data-name="Koton" data-image="det_14.jpg" data-description="Rs 500"></i>
+    </div>
+  </div>
+      </div>
+   
+  
+  
+
+  <script>
+    // JavaScript for Slider Navigation
+    const slider = document.querySelector('.carousel');
+    let currentSlide = 0;
+
+    function slideTo(slide) {
+      currentSlide = slide;
+      slider.style.transform = `translateX(-${slide * 100}%)`; // Calculate translate value based on slide index
+ // Calculate translate value based on slide index
+    }
+
+    function nextSlide() {
+      const numSlides = slider.querySelectorAll('.slide').length;
+      if (currentSlide === numSlides - 1) {
+        currentSlide = 0;
+      } else {
+        currentSlide++;
+      }
+      slideTo(currentSlide);
+    }
+
+    function prevSlide() {
+      const numSlides = slider.querySelectorAll('.slide').length;
+      if (currentSlide === 0) {
+        currentSlide = numSlides - 1;
+      } else {
+        currentSlide--;
+      }
+      slideTo(currentSlide);
+    }
+
+    // Function to dynamically add images to the slider
+    function addImagesToSlider(images) {
+      const slideContainer = document.querySelector('.carousel');
+      slideContainer.innerHTML = ''; // Clear existing images
+      images.forEach(image => {
+        const img = document.createElement('img');
+        img.classList.add('slide');
+        img.src = image;
+        img.alt = 'Product Image';
+        slideContainer.appendChild(img);
+      });
+      // Update the number of slides
+      currentSlide = 0;
+      slideTo(currentSlide);
+    }
+
+    // Example usage:
+    const images = ['prd_det_img_1.jpg', 'prd_det_img_2.jpg', 'prd_det_img_3.jpg'];
+    addImagesToSlider(images);
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const addToCartButton = document.querySelector('.add-to-cart1');
+      const addToWishlistButton = document.querySelector('.add-to-wishlist1');
+
+      addToCartButton.addEventListener('click', addToCart);
+      addToWishlistButton.addEventListener('click', addToWishlist);
+
+      function addToCart() {
+        // Get product details
+        const productName = document.querySelector('.product-name').textContent;
+        const productPrice = document.querySelector('.product-price').textContent;
+
+        // Create an object with product information
+        const productInfo = {
+          name: productName,
+          price: productPrice
+          // Add more details if needed
+        };
+
+        // Get existing cart items from localStorage
+        let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Add the new product to the cart
+        cartItems.push(productInfo);
+
+        // Save the updated cart items back to localStorage
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+
+        // Notify the user
+        alert('Product added to cart!');
+      }
+
+      function addToWishlist() {
+        // Get product details
+        const productName = document.querySelector('.product-name').textContent;
+        const productPrice = document.querySelector('.product-price').textContent;
+
+        // Create an object with product information
+        const productInfo = {
+          name: productName,
+          price: productPrice
+          // Add more details if needed
+        };
+
+        // Get existing wishlist items from localStorage
+        let wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+        // Add the new product to the wishlist
+        wishlistItems.push(productInfo);
+
+        // Save the updated wishlist items back to localStorage
+        localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+
+        // Notify the user
+        alert('Product added to wishlist!');
+      }
+    });
+  
+  
+  // similar products js
+
+  document.addEventListener('DOMContentLoaded', function() {
+            const wishlistIcons = document.querySelectorAll('.add-to-wishlist');
+
+            wishlistIcons.forEach(icon => {
+                icon.addEventListener('click', addToWishlist);
+            });
+
+            function addToWishlist(event) {
+                const productName = event.target.getAttribute('data-name');
+                const productImage = event.target.getAttribute('data-image');
+                const productDescription = event.target.getAttribute('data-description');
+                
+                const productInfo = {
+                    name: productName,
+                    image: productImage,
+                    description: productDescription
+                };
+
+                // Retrieve existing wishlist items from local storage
+                const existingWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+                // Add the new product to the wishlist
+                existingWishlist.push(productInfo);
+
+                // Update the wishlist in local storage
+                localStorage.setItem('wishlist', JSON.stringify(existingWishlist));
+
+                // Notify user that the product has been added to the wishlist
+                alert('Product added to wishlist!');
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+    const cartIcons = document.querySelectorAll('.add-to-cart');
+
+    cartIcons.forEach(icon => {
+        icon.addEventListener('click', addToCart);
+    });
+
+    function addToCart(event) {
+        const productName = event.target.getAttribute('data-name');
+        const productImage = event.target.getAttribute('data-image');
+        const productDescription = event.target.getAttribute('data-description');
+        
+        const productInfo = {
+            name: productName,
+            image: productImage,
+            description: productDescription
+        };
+
+        // Retrieve existing cart items from local storage
+        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Add the new product to the cart
+        existingCart.push(productInfo);
+
+        // Update the cart in local storage
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+
+        // Notify user that the product has been added to the cart
+        alert('Product added to cart!');
+    }
+});
+  </script>
+</body>
+</html>

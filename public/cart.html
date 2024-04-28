@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <meta name = "description" content = "coupon.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #177e9d; /* Change background color */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #74d5f2;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333; /* Change text color */
+            margin-bottom: 20px; /* Add some space below the heading */
+        }
+
+        .cart-item {
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-item:hover {
+            transform: translateY(-5px); /* Move product container upwards on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow on hover */
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .cart-item h2 {
+            margin: 0;
+            color: #333; /* Change text color */
+            font-size: 1.2rem; /* Increase font size */
+        }
+
+        .cart-item p {
+            margin: 5px 0;
+            color: #666; /* Change text color */
+        }
+
+        .delete-icon {
+            color: #d9534f; /* Change icon color to red */
+            cursor: pointer;
+            font-size: 20px;
+            margin-right: 10px; /* Increase the size of the delete icon */
+        }
+
+        .buy-now-button {
+            background-color:#333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .buy-now-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Center the back button */
+        .back-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style> <!-- Link to external CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+
+        <!-- Back button container -->
+        <div class="back-button-container">
+            <button class="back-button" onclick="redirectToShop()">Back to Shop</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartContainer = document.querySelector('.cart-items');
+
+            updateCart();
+
+            function updateCart() {
+                cartContainer.innerHTML = '';
+
+                if (cartItems.length === 0) {
+                    cartContainer.innerHTML = '<p>No items in your cart.</p>';
+                } else {
+                    cartItems.forEach((item, index) => { // Added index parameter
+                        const cartItem = document.createElement('div');
+                        cartItem.classList.add('cart-item');
+                        cartItem.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}">
+                            <div>
+                                <h2>${item.name}</h2>
+                                <p>${item.description}</p>
+                                <span class="delete-icon" onclick="removeFromCart(${index})"><i class="fas fa-trash-alt"></i></span> <!-- Use the dustbin icon for delete -->
+                                <button class="buy-now-button" onclick="buyNow('${item.price}')">Buy Now</button> <!-- Pass the price as parameter -->
+                            </div>
+                        `;
+                        cartContainer.appendChild(cartItem);
+                    });
+                }
+            }
+
+            // Function to remove item from cart
+            window.removeFromCart = function(index) {
+                cartItems.splice(index, 1); // Remove item from array
+                localStorage.setItem('cart', JSON.stringify(cartItems)); // Update local storage
+                updateCart(); // Update the cart display
+            };
+
+            // // Function to redirect to shop.html
+            
+            window.redirectToShop = function() {
+                window.location.href = "shop.html"; // Redirect to shop.html page
+            };
+
+            // Function to handle buy now button click
+            window.buyNow = function(price) {
+                // Redirect to the checkout page passing the price as a query parameter
+                window.location.href = `checkout.html?price=${price}`;
+            };
+        });
+    </script> <!-- Link to external JS file -->
+</body>
+</html>
+

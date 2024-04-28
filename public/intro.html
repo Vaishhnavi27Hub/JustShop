@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>justShop - Intro</title>
+    <style>
+    body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 400;
+            background: radial-gradient(circle, rgba(8, 61, 119, 1) 0%, rgba(9, 41, 88, 1) 100%); /* Radial gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative; /* Add relative positioning to the body */
+            overflow: hidden; /* Hide overflow content */
+        }
+
+.intro-container {
+    text-align: center;
+    position: relative; /* Add relative positioning */
+    z-index: 1; /* Ensure content appears above overlays */
+}
+
+/* Create overlay effect */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Ensure clicks and pointer events pass through */
+    z-index: 0; /* Set z-index below content */
+    opacity: 0.5; /* Adjust opacity as needed */
+}
+
+/* Overlay effect colors */
+body::before {
+    background-color: #000; /* Black overlay */
+    mix-blend-mode: overlay; /* Use overlay blend mode */
+}
+
+body::after {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%); /* Linear gradient overlay */
+}
+
+.intro-container {
+    text-align: center;
+    width: 400px; /* Set the width of the intro container */
+    height: 300px
+}
+
+.logo {
+    width: 200px; /* Adjust the size of the logo */
+    height: 200px;
+    border-radius: 50%; /* Make the logo round */
+    animation: flipRotate 2s ease-in-out infinite; /* Apply animation to the logo */
+    margin:8px;
+}
+
+@keyframes flipRotate {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+.shop-now-btn {
+            background-color: #00a8cc; /* Dark cyan color for button */
+            color: #fff; /* White color for text */
+            padding: 10px 20px; /* Adjust padding as needed */
+            font-size: 20px; /* Adjust font size as needed */
+            border: none;
+            border-radius: 5px; /* Rounded corners for button */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 30px; /* Adjust vertical position */
+            right: 8%; /* Center horizontally */
+            transform: translateX(-50%);
+            margin-top: 10px;
+        }
+
+.shop-now-btn:hover {
+    background-color: #0077b6; /* Darker cyan color on hover */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="intro-container d-flex flex-column justify-content-center">
+        <img class="logo" src="logo_a.png" alt="justShop Logo">
+        <button class="shop-now-btn" onclick="redirectToSignup()">Just shop now</button>
+    </div>
+    <script >
+        function redirectToSignup() {
+            window.location.href = "signup-login.html";
+        }
+
+    </script>
+</body>
+</html>
